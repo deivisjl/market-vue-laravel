@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('/', function () {
     return view('index');
