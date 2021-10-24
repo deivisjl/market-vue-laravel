@@ -16,9 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-/* Ruta para obtener tokens */
-Route::post('oauth/token','\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
-
-/* rutas de acceso */
-Route::resource('roles','Acceso\RolController',['except' => ['create','show']]);

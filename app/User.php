@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id','nombres','apellidos','direccion','telefono','email', 'password','deleted_at'
+        'id','nombres','apellidos','direccion','telefono','email', 'password','deleted_at','rol_id'
     ];
 
     /**

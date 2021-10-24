@@ -20,8 +20,10 @@ class CreateUsersTable extends Migration
             $table->text('direccion');
             $table->bigInteger('telefono');
             $table->string('email')->unique();
+            $table->bigInteger('rol_id')->unsigned();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreign('rol_id')->references('id')->on('rol');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

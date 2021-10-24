@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TiendaUsuario extends Model
 {
@@ -11,4 +12,9 @@ class TiendaUsuario extends Model
     protected $fillable = [
         'id','tienda_id','usuario_id','status'
     ];
+
+    public function tienda()
+    {
+        return $this->belongsTo(Tienda::class);
+    }
 }

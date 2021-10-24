@@ -14,20 +14,16 @@ class UsuarioSeeder extends Seeder
      */
     public function run()
     {
+        $rol = Rol::first();
+
         $usuario = User::create([
             'nombres' => 'Jairo',
             'apellidos' => 'Melgar',
             'telefono' => 59283247,
             'direccion' => 'Ciudad',
             'email' => 'jairo@gmail.com',
-            'password' => bcrypt('12345')
-        ]);
-
-        $rol = Rol::first();
-
-        UsuarioRol::create([
-            'rol_id' => $rol->id,
-            'usuario_id'=> $usuario->id
+            'password' => bcrypt('12345'),
+            'rol_id' => $rol->id
         ]);
     }
 }
