@@ -22,10 +22,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a class="nav-link"><reloj-component></reloj-component></a>
       </li>
     </ul>
 
@@ -168,7 +165,7 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->nombres }} {{ Auth::user()->apellidos }}
-              <small><i class="fa fa-circle user-status-dot d-block" style="color: #6ec95e;"> Administrador</i></small>
+              <small><i class="fa fa-circle user-status-dot d-block" style="color: #6ec95e;"> {{ Auth::user()->rol->nombre }}</i></small>
           </a>
         </div>
       </div>
@@ -177,12 +174,116 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Catálogos
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('categorias.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Categorías</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('proveedores.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Proveedores</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('unidades-de-medida.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Unidad de medida</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('formas-de-pago.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Forma de pago</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Productos</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('clientes.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Clientes</p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-store"></i>
+                  <p>
+                    Tiendas
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-money-bill-alt"></i>
+                  <p>
+                    Punto de venta
+                  </p>
+                </a>
+              </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-truck-loading"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+                Compras
+              </p>
+            </a>
+          </li>
+          {{--  --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-warehouse"></i>
+              <p>
+                Inventario
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Existencias de productos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transferencia de stock</p>
+                </a>
+              </li>
+            </ul>
+        </li>
+          {{--  --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-shopping-cart"></i>
+              <p>
+                Ventas
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Usuarios
               </p>
             </a>
           </li>
@@ -190,9 +291,8 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Layout Options
+                Reportes
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -266,7 +366,7 @@
   </footer>
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @yield('js')
 </body>
 </html>

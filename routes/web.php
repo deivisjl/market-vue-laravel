@@ -16,3 +16,10 @@ Route::get('/', 'HomeController@index')->name('home')->middleware('tienda');
 Route::get('/seleccionar-tienda', 'HomeController@tienda');
 Route::post('/elegir-tienda', 'HomeController@elegirTienda')->name('elegir-tienda');
 Route::get('/logout','Auth\LoginController@logout');
+
+/* Accesos */
+Route::resource('/categorias','Acceso\CategoriaController');
+Route::resource('/proveedores','Catalogos\ProveedorController');
+Route::resource('/unidades-de-medida','Catalogos\UnidadMedidaController');
+Route::resource('/formas-de-pago','Catalogos\FormaPagoController');
+Route::resource('/clientes','Catalogos\ClienteController');
