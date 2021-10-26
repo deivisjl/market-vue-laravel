@@ -152,9 +152,9 @@ class ProveedorController extends Controller
         } catch (\Exception $e) {
 
             if ($e instanceof QueryException) {
-                $codigo = $e->errorInfo[0];
+                $codigo = $e->errorInfo[1];
 
-                if ($codigo == 23503) {
+                if ($codigo == 1451) {
                     return response()->json(['error' => 'No se puede eliminar porque tiene registros asociados'],423);
                 }
             }

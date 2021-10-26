@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Catalogos;
 
-use App\Cliente;
+use App\Producto;
+use App\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 
-class ClienteController extends Controller
+class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('catalogos.cliente.index');
+        return view('catalogos.producto.index');
     }
 
     /**
@@ -27,7 +28,9 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('catalogos.cliente.create');
+        $categorias = Categoria::all();
+
+        return view('catalogos.producto.create',['categorias'=>$categorias]);
     }
 
     /**
@@ -39,49 +42,51 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            "nombres" => 'required',
-            "apellidos" => 'required',
-            "nit" => 'required|unique:cliente',
-            "telefono" => 'required|unique:cliente',
-            "direccion" => 'required',
+            'nombre' => 'required',
+            'categoria' => 'required|numeric',
+            'porcentaje' => 'required|numeric|min:1',
+            'stock_minimo' => 'required|numeric|min:1',
+            'descripcion' => 'nullable'
         ];
 
         $this->validate($request, $rules);
 
-        $cliente = new Cliente();
-        $cliente->nombres = $request->nombres;
-        $cliente->apellidos = $request->apellidos;
-        $cliente->telefono = $request->telefono;
-        $cliente->direccion = $request->direccion;
-        $cliente->nit = $request->nit;
-        $cliente->save();
+        $producto = new Producto();
+        $producto->nombre = $request->nombre;
+        $producto->categoria_id = $request->categoria;
+        $producto->descripcion = $request->descripcion;
+        $producto->porcentaje_ganancia = $request->porcentaje;
+        $producto->stock_minimo = $request->stock_minimo;
+        $producto->save();
 
-        return redirect('/clientes')->with(['mensaje' => 'Registro exitoso']);
+        return redirect('/productos')->with(['mensaje' => 'Registro exitoso']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
     {
-        $ordenadores = array("id","nombres","nit","telefono");
+        $ordenadores = array("p.id","p.nombre","c.nombre","p.porcentaje_ganancia","p.stock_minimo");
 
         $columna = $request['order'][0]["column"];
 
         $criterio = $request['search']['value'];
 
-        $clientes = DB::table('cliente')
-                ->select('id',DB::raw('CONCAT_WS("",nombres," ",apellidos) as nombre'),'nit','telefono')
+        $productos = DB::table('producto as p')
+                ->join('categoria as c','p.categoria_id','c.id')
+                ->select('p.id','p.nombre','c.nombre as categoria','p.porcentaje_ganancia','p.stock_minimo')
                 ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
                 ->orderBy($ordenadores[$columna], $request['order'][0]["dir"])
                 ->skip($request['start'])
                 ->take($request['length'])
                 ->get();
 
-        $count = DB::table('cliente')
+        $count = DB::table('producto as p')
+                ->join('categoria as c','p.categoria_id','c.id')
                 ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
                 ->count();
 
@@ -89,7 +94,7 @@ class ClienteController extends Controller
             'draw' => $request->draw,
             'recordsTotal' => $count,
             'recordsFiltered' => $count,
-            'data' => $clientes,
+            'data' => $productos,
         );
 
         return response()->json($data, 200);
@@ -98,53 +103,56 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit(Producto $producto)
     {
-        return view('catalogos.cliente.edit',['cliente' => $cliente]);
+        $categorias = Categoria::all();
+
+        return view('catalogos.producto.edit',['categorias'=>$categorias, 'producto' => $producto]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cliente  $cliente
+     * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, Producto $producto)
     {
         $rules = [
-            "nombres" => 'required',
-            "apellidos" => 'required',
-            "nit" => 'required|unique:cliente,nit,'.$cliente->id,
-            "telefono" => 'required|unique:cliente,telefono,'.$cliente->id,
-            "direccion" => 'required',
+            'nombre' => 'required',
+            'categoria' => 'required|numeric',
+            'porcentaje' => 'required|numeric|min:1',
+            'stock_minimo' => 'required|numeric|min:1',
+            'descripcion' => 'nullable'
         ];
 
         $this->validate($request, $rules);
 
-        $cliente->nombres = $request->nombres;
-        $cliente->apellidos = $request->apellidos;
-        $cliente->telefono = $request->telefono;
-        $cliente->direccion = $request->direccion;
-        $cliente->nit = $request->nit;
-        $cliente->save();
+        $producto->nombre = $request->nombre;
+        $producto->categoria_id = $request->categoria;
+        $producto->descripcion = $request->descripcion;
+        $producto->porcentaje_ganancia = $request->porcentaje;
+        $producto->stock_minimo = $request->stock_minimo;
+        $producto->save();
 
-        return redirect('/clientes')->with(['mensaje' => 'Registro editado con éxito']);
+        return redirect('/productos')->with(['mensaje' => 'Registro editado con éxito']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Producto $producto)
     {
         try {
-            $cliente->delete();
+
+            $producto->delete();
 
             return response()->json(['data' => 'Registro eliminado con éxito'],200);
 

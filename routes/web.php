@@ -23,6 +23,7 @@ Route::resource('/proveedores','Catalogos\ProveedorController');
 Route::resource('/unidades-de-medida','Catalogos\UnidadMedidaController');
 Route::resource('/formas-de-pago','Catalogos\FormaPagoController');
 Route::resource('/clientes','Catalogos\ClienteController');
+Route::resource('/productos','Catalogos\ProductoController');
 
 Route::resource('/tiendas','Tienda\TiendaController');
 Route::get('/tiendas-deshabilitar/{request}','Tienda\TiendaController@deshabilitar');
