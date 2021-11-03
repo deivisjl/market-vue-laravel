@@ -12,7 +12,7 @@
 */
     Auth::routes(['register' => false, 'reset' => false]);
 
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home')->middleware('tienda');
     Route::get('/seleccionar-tienda', 'HomeController@tienda');
     Route::post('/elegir-tienda', 'HomeController@elegirTienda')->name('elegir-tienda');
     Route::get('/logout','Auth\LoginController@logout');
