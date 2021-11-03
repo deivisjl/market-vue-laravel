@@ -169,4 +169,11 @@ class ProductoController extends Controller
             return response()->json(['error' => $e->getMessage()],422);
         }
     }
+
+    public function obtenerProductos(){
+
+        $productos = Producto::select('id',DB::raw("nombre"))->get();
+
+        return response()->json(['data' => $productos],200);
+    }
 }

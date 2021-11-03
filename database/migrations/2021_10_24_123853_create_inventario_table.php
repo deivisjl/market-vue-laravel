@@ -17,10 +17,10 @@ class CreateInventarioTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('tienda_id')->unsigned();
             $table->bigInteger('producto_id')->unsigned();
-            $table->integer('cantidad_total');
+            $table->integer('cantidad_total')->unsigned();
             $table->decimal('precio_promedio');
             $table->bigInteger('tipo_operacion_id')->unsigned()->nullable();
-            $table->integer('cantidad');
+            $table->integer('cantidad')->unsigned;
             $table->decimal('precio',7,2);
             $table->foreign('tienda_id')->references('id')->on('tienda');
             $table->foreign('producto_id')->references('id')->on('producto');

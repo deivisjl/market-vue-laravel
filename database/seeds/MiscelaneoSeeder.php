@@ -20,10 +20,6 @@ class MiscelaneoSeeder extends Seeder
         ]);
 
         TipoOperacion::create([
-            'nombre' => 'Registro'
-        ]);
-
-        TipoOperacion::create([
             'nombre' => 'Compra'
         ]);
 

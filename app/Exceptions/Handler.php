@@ -71,6 +71,18 @@ class Handler extends ExceptionHandler
     }
     public function handleException($request, Exception $exception)
     {
+        if($exception instanceof TokenMismatchException)
+        {
+            if($this->isFrontend($request))
+            {
+                return redirect()->route('home');
+            }
+            else
+            {
+                return response()->json(['error' => 'La sesión expiró'],423);
+            }
+        }
+
         if ($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
         }

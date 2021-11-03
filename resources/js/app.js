@@ -51,6 +51,10 @@ Vue.use(VeeValidate, config);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('reloj-component', require('./components/shared/RelojComponent.vue').default);
+Vue.component('error-form', require('./components/shared/ErrorComponent.vue').default);
+
+Vue.component('compra-component', require('./components/CompraComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

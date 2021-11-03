@@ -10,12 +10,16 @@ use Illuminate\Database\QueryException;
 
 class CategoriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('tienda');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('catalogos.categoria.index');
     }

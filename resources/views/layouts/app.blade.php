@@ -29,7 +29,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
         </a>
@@ -48,10 +48,10 @@
             </div>
           </form>
         </div>
-      </li>
+      </li> --}}
 
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
@@ -107,9 +107,9 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
-      </li>
+      </li> --}}
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -134,12 +134,12 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
-      <li class="nav-item">
+      </li> --}}
+      {{-- <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-item active">
         <a class="nav-link" href="/logout" role="button">
             <i class="fas fa-power-off"></i>
@@ -196,12 +196,12 @@
                       <p>Proveedores</p>
                     </a>
                   </li>
-                  <li class="nav-item">
+                  {{-- <li class="nav-item">
                     <a href="{{ route('unidades-de-medida.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Unidad de medida</p>
                     </a>
-                  </li>
+                  </li> --}}
                   <li class="nav-item">
                     <a href="{{ route('formas-de-pago.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -239,7 +239,7 @@
                 </a>
               </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('compras.index') }}" class="nav-link">
               <i class="nav-icon fas fa-truck-loading"></i>
               <p>
                 Compras
@@ -257,7 +257,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('inventario.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Existencias de productos</p>
                 </a>

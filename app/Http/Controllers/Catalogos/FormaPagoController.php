@@ -146,4 +146,11 @@ class FormaPagoController extends Controller
             return response()->json(['error' => $e->getMessage()],422);
         }
     }
+
+    public function obtenerFormaPago(){
+
+        $tipoPago = FormaPago::select('id','nombre')->get();
+
+        return response()->json(['data' => $tipoPago],200);
+    }
 }

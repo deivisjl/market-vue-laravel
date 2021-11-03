@@ -150,4 +150,11 @@ class UnidadMedidaController extends Controller
             return response()->json(['error' => $e->getMessage()],422);
         }
     }
+
+    public function obtenerUnidadMedida(){
+
+        $medidas = UnidadMedida::select('id','nombre','cantidad')->get();
+
+        return response()->json(['data' => $medidas],200);
+    }
 }

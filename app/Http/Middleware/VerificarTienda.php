@@ -16,7 +16,7 @@ class VerificarTienda
 
     public function handle($request, Closure $next)
     {
-        if($request->session()->has('tienda'))
+        if($request->session()->has('tienda') && $request->session()->get('tienda') != null)
         {
             return $next($request);
         }
