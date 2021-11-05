@@ -11,16 +11,20 @@
 <body class="hold-transition login-page text-sm">
 <div id="app" class="login-box">
   <!-- /.login-logo -->
-  <div class="card card-outline card-primary">
-    <div class="card-header">
-      <h3 class="card-title">Selecciona una tienda</h3>
-      <div class="card-tools">
-        <i class="fas fa-lock"></i>
-      </div>
-      <!-- /.card-tools -->
+  <div class="card card-widget widget-user">
+    <!-- Add the bg color to the header using any of the bg-* classes -->
+    <div class="widget-user-header text-white" style="background: url('/img/supermarket.png') center center no-repeat;">
+      <h3 class="widget-user-username text-right">{{ Auth::user()->nombres }} {{ Auth::user()->apellidos }}</h3>
+      <h5 class="widget-user-desc text-right">{{ Auth::user()->rol->nombre }}</h5>
     </div>
-    <!-- /.card-header -->
-    <div class="card-body p-0">
+    <div class="card-header">
+        <h3 class="card-title">Selecciona una tienda</h3>
+        <div class="card-tools">
+          <i class="fas fa-lock"></i>
+        </div>
+        <!-- /.card-tools -->
+      </div>
+      <div class="card-body p-0">
         <ul class="nav nav-pills flex-column">
             @foreach ($tiendas as $item)
             <li class="nav-item active">
@@ -36,8 +40,8 @@
             @endforeach
           </ul>
     </div>
-    <!-- /.card-body -->
   </div>
+  {{--  --}}
 </div>
 <!-- /.login-box -->
 
