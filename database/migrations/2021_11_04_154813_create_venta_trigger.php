@@ -38,7 +38,7 @@ class CreateVentaTrigger extends Migration
                     UPDATE vista_inventario SET stock = (tmp_cantidad - NEW.cantidad), precio = tmp_promedio where tienda_id = NEW.tienda_id AND producto_id = NEW.producto_id;
                 ELSE
                     SIGNAL SQLSTATE \'45000\';
-                    SET MESSAGE_TEXT = \'El stock es menor a la venta\';
+                    SET MESSAGE_ERROR = \'El stock es menor a la venta\';
                 END IF;
             END
         ');
