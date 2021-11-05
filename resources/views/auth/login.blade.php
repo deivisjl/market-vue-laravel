@@ -11,7 +11,7 @@
 <body class="hold-transition login-page text-sm">
 <div id="app" class="login-box">
   <!-- /.login-logo -->
-  <div class="card">
+  <div class="card card-outline card-primary">
     <div class="card-body login-card-body">
         <div class="login-logo">
             <a href=""><b>{{ config('app.name', 'Laravel') }}</b></a>

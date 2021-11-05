@@ -26,7 +26,7 @@
                                     <span slot="noResult">No se encontraron registros</span>
                                     </multiselect>
                                 <div class="input-group-append">
-                                    <span class="input-group-text bg-primary text-light" style="cursor:pointer;">
+                                    <span class="input-group-text bg-primary text-light" @click.prevent="agregar_proveedor()" style="cursor:pointer;">
                                         <li class="fas fa-plus"></li>
                                     </span>
                                 </div>
@@ -148,6 +148,23 @@
                 <button class="btn btn-primary btn-lg btn-block btn-flat" @click.prevent="guardar('proveedor')">Registrar compra</button>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal" tabindex="-1" data-backdrop="static" id="registrarProveedor">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrar proveedor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <proveedor-component v-if="form_modal"></proveedor-component>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!--  -->
     </div>
 </template>
 <script>
@@ -161,6 +178,7 @@
             return{
                 isLoading: false, //multiselect
                 loading: false,
+                form_modal:false,
 
                 proveedor:'',
                 proveedores:[],
@@ -185,8 +203,25 @@
         mounted() {
             this.config_error()
             this.obtener_registros()
+            $('#registrarProveedor').on('hidden.bs.modal', function (e) {
+                    this.form_modal = false
+                    events.$emit('cerrar_modal')
+            })
+            events.$on('cerrar_modal', this.event_cerrar_modal)
+        },
+        beforeDestroy()
+        {
+            events.$off('cerrar_modal',this.event_cerrar_modal)
         },
         methods:{
+            event_cerrar_modal(data){
+                this.form_modal = false
+            },
+            agregar_proveedor()
+            {
+                this.form_modal = true
+                $('#registrarProveedor').appendTo("body").modal('show');
+            },
             guardar(scope){
                 this.$validator.validateAll(scope).then((result) => {
                             if(result)

@@ -52,8 +52,11 @@ Vue.use(VeeValidate, config);
 
 Vue.component('reloj-component', require('./components/shared/RelojComponent.vue').default);
 Vue.component('error-form', require('./components/shared/ErrorComponent.vue').default);
+Vue.component('cliente-component', require('./components/shared/ClienteComponent.vue').default);
+Vue.component('proveedor-component', require('./components/shared/ProveedorComponent.vue').default);
 
 Vue.component('compra-component', require('./components/CompraComponent.vue').default);
+Vue.component('venta-component', require('./components/VentaComponent.vue').default);
 
 
 /**

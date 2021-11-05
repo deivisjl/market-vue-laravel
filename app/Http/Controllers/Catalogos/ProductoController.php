@@ -170,10 +170,26 @@ class ProductoController extends Controller
         }
     }
 
-    public function obtenerProductos(){
+    public function obtenerProductos($criterio){
 
-        $productos = Producto::select('id',DB::raw("nombre"))->get();
+        $productos = Producto::select('id','nombre')
+                        ->where('nombre','LIKE','%'.$criterio.'%')
+                        ->get();
 
         return response()->json(['data' => $productos],200);
+    }
+
+    public function buscarProductoNombre($criterio){
+
+        $registro = session('tienda');
+
+        $productos = DB::table('producto as p')
+                        ->join('vista_inventario as vi','vi.producto_id','p.id')
+                        ->select('p.id','p.nombre',DB::raw('ROUND(((vi.precio*p.porcentaje_ganancia)/100) + vi.precio,2) as precio'),'vi.precio as compra')
+                        ->where('vi.tienda_id',$registro->id)
+                        ->where('p.nombre','LIKE','%'.$criterio.'%')
+                        ->get();
+
+        return response()->json(['data' => $productos,'code' => 200]);
     }
 }

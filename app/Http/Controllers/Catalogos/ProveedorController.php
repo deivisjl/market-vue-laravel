@@ -40,8 +40,8 @@ class ProveedorController extends Controller
     {
         $rules = [
             "nombre" => 'required',
-            "correo" => 'required|email|unique:proveedor',
-            "nit" => 'required|unique:proveedor',
+            "correo" => 'nullable|email|unique:proveedor',
+            "nit" => 'nullable|unique:proveedor',
             "telefono" => 'required|unique:proveedor',
             "direccion" => 'required',
         ];
@@ -118,8 +118,8 @@ class ProveedorController extends Controller
     {
         $rules = [
             "nombre" => 'required',
-            "correo" => 'required|email|unique:proveedor,correo,'.$proveedore->id,
-            "nit" => 'required|unique:proveedor,nit,'.$proveedore->id,
+            "correo" => 'nullable|email|unique:proveedor,correo,'.$proveedore->id,
+            "nit" => 'nullable|unique:proveedor,nit,'.$proveedore->id,
             "telefono" => 'required|unique:proveedor,telefono,'.$proveedore->id,
             "direccion" => 'required',
         ];
@@ -167,5 +167,35 @@ class ProveedorController extends Controller
         $proveedores = Proveedor::select('id',DB::raw("CONCAT_WS(' ',nombre,'-',nit) as nombre"))->get();
 
         return response()->json(['data' => $proveedores],200);
+    }
+
+    public function guardarNuevoProveedor(Request $request)
+    {
+        try
+        {
+            $rules = [
+                "nombre" => 'required',
+                "correo" => 'nullable|email|unique:proveedor',
+                "nit" => 'nullable|unique:proveedor',
+                "telefono" => 'required|unique:proveedor',
+                "direccion" => 'required',
+            ];
+
+            $this->validate($request, $rules);
+
+            $proveedor = new Proveedor();
+            $proveedor->nombre = $request->nombre;
+            $proveedor->correo = $request->correo;
+            $proveedor->telefono = $request->telefono;
+            $proveedor->direccion = $request->direccion;
+            $proveedor->nit = $request->nit;
+            $proveedor->save();
+
+            return response()->json(['data' => 'Registro exitoso'],200);
+        }
+        catch (\Exception $ex)
+        {
+            return response()->json(['error' => $ex->getMessage()],423);
+        }
     }
 }

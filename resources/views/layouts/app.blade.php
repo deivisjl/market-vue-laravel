@@ -152,7 +152,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link p-2 mb-1">
+    <a href="{{ route('home') }}" class="brand-link p-2 mb-1">
       <h4 class="text-center">{{ Session::get('tienda')->nombre }}</h4>
     </a>
 
@@ -231,7 +231,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('ventas.create') }}" class="nav-link">
                   <i class="nav-icon fas fa-money-bill-alt"></i>
                   <p>
                     Punto de venta
@@ -272,7 +272,7 @@
         </li>
           {{--  --}}
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('ventas.index') }}" class="nav-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
                 Ventas

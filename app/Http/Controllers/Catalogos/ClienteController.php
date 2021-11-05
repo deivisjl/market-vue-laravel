@@ -161,4 +161,39 @@ class ClienteController extends Controller
             return response()->json(['error' => $e->getMessage()],422);
         }
     }
+
+    public function obtenerClientes(){
+
+        $clientes = Cliente::select('id',DB::raw("CONCAT_WS(' ',nombres,' ',apellidos,'-',nit) as nombre"))->get();
+
+        return response()->json(['data' => $clientes],200);
+    }
+    public function guardarNuevoCliente(Request $request)
+    {
+        try {
+            $rules = [
+                'nombre' => 'required',
+                'apellido' => 'required',
+                'telefono' => 'nullable|numeric',
+                'nit' => 'nullable|string|unique:cliente',
+                'direccion' => 'required',
+            ];
+
+            $this->validate($request, $rules);
+
+            $cliente = new Cliente();
+            $cliente->nombres = $request->nombre;
+            $cliente->apellidos = $request->apellido;
+            $cliente->nit = $request->nit;
+            $cliente->telefono = $request->telefono;
+            $cliente->direccion = $request->direccion;
+            $cliente->save();
+
+            return response()->json(['data' => 'Registro exitoso'],200);
+
+        } catch (\Exception $ex) {
+
+            return response()->json(['error' => $ex->getMessage()],423);
+        }
+    }
 }
