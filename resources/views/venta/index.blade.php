@@ -84,7 +84,7 @@
              var data = table.fnGetData($(this).parents("tr"));
 
             var id = data.id;
-             //window.location.href = "/ventas/" + id + "/edit";
+             window.location.href = "/ventas-detalle/" + id;
           });
       }
 </script>

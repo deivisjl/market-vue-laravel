@@ -11,4 +11,9 @@ class DetalleCompra extends Model
     protected $fillable = [
         'id','tienda_id','producto_id','compra_id','cantidad','precio_unitario'
     ];
+
+    public function producto()
+    {
+        return $this->belongsTo(Producto::class);
+    }
 }

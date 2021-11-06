@@ -74,7 +74,10 @@
               {'data': 'proveedor'},
               {'data': 'no_comprobante'},
               {'data': 'forma_pago'},
-              {'data': 'monto'},
+              {'data': 'monto', "render":function(data,type,row,meta){
+                return '<span> Q. '+ data +'</span>'
+                }
+              },
               {'data': 'fecha',"orderable":false, "searchable":false},
               {'defaultContent':'<a href="" class="detalle btn btn-info btn-sm btn-flat"  data-toggle="tooltip" data-placement="top" title="Detalle del registro"><i class="fas fa-pencil-alt"></i> Detalle</a>', "orderable":false}
           ],
@@ -90,7 +93,7 @@
              var data = table.fnGetData($(this).parents("tr"));
 
             var id = data.id;
-             //window.location.href = "/compras/" + id + "/edit";
+             window.location.href = "/compras-detalle/" + id;
           });
       }
 </script>

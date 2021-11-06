@@ -31,9 +31,6 @@
         Route::get('/buscar-proveedores-nombre/{request}','Catalogos\ProveedorController@obtenerProveedores');
         Route::post('/guardar-nuevo-proveedor','Catalogos\ProveedorController@guardarNuevoProveedor');
 
-        //Route::resource('/unidades-de-medida','Catalogos\UnidadMedidaController');
-        //Route::get('/obtener-unidad-medida','Catalogos\UnidadMedidaController@obtenerUnidadMedida');
-
         Route::resource('/formas-de-pago','Catalogos\FormaPagoController');
         Route::get('/obtener-forma-pago','Catalogos\FormaPagoController@obtenerFormaPago');
 
@@ -49,8 +46,13 @@
         Route::get('/tiendas-deshabilitar/{request}','Tienda\TiendaController@deshabilitar');
 
         Route::resource('/compras','Compra\CompraController');
+        Route::get('/compras-detalle/{id}','Compra\CompraController@detalle');
+
         Route::resource('/ventas','Venta\VentaController',['except' => ['create']]);
+        Route::get('/ventas-detalle/{id}','Venta\VentaController@detalle');
         Route::get('/punto-de-venta','Venta\VentaController@create')->name('ventas.create')->middleware('caja');
 
         Route::resource('/inventario','Inventario\InventarioController');
+        Route::get('/inventario-detalle/{id}','Inventario\InventarioController@detalle');
+        Route::get('/inventario-detalle-producto/{request}','Inventario\InventarioController@detalleProducto');
     });

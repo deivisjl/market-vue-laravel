@@ -162,4 +162,22 @@ class CompraController extends Controller
     {
         //
     }
+
+    public function detalle($id)
+    {
+        $tienda = session('tienda');
+
+        $compra = Compra::with('detalle_compra')
+                        ->where('tienda_id',$tienda->id)
+                        ->where('id',$id)->first();
+
+        if($compra != null)
+        {
+            return view('compra.detalle',['compra' => $compra]);
+        }
+        else
+        {
+            abort(404);
+        }
+    }
 }

@@ -92,7 +92,7 @@
              var data = table.fnGetData($(this).parents("tr"));
 
             var id = data.id;
-            //window.location.href = "/inventario/" + id + "/edit";
+            window.location.href = "/inventario-detalle/" + id;
           });
       }
 </script>

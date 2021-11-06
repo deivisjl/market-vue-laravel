@@ -71,6 +71,14 @@ class Handler extends ExceptionHandler
     }
     public function handleException($request, Exception $exception)
     {
+        if($exception instanceof HttpException)
+        {
+            if($exception->getStatusCode() == 404)
+            {
+                return response()->view('errors.404');
+            }
+        }
+
         if($exception instanceof TokenMismatchException)
         {
             if($this->isFrontend($request))

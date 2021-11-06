@@ -197,4 +197,23 @@ class VentaController extends Controller
 
         return $respuesta;
     }
+
+    public function detalle($id)
+    {
+        $tienda = session('tienda');
+
+        $venta = Venta::with('detalle_venta')
+                    ->where('id',$id)
+                    ->where('tienda_id',$tienda->id)
+                    ->first();
+
+        if($venta != null)
+        {
+            return view('venta.detalle',['venta' => $venta]);
+        }
+        else
+        {
+            abort(404);
+        }
+    }
 }

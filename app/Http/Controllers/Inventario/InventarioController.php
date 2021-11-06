@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Inventario;
 
+use App\Producto;
 use App\Inventario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,7 +49,7 @@ class InventarioController extends Controller
      */
     public function show(Request $request)
     {
-        $ordenadores = array("i.id","p.nombre","i.cantidad","i.precio_promedio");
+        $ordenadores = array("i.producto_id","p.nombre","i.cantidad","i.precio_promedio");
 
         $columna = $request['order'][0]["column"];
 
@@ -58,7 +59,7 @@ class InventarioController extends Controller
 
         $existencias = DB::table('vista_inventario as i')
                 ->join('producto as p','i.producto_id','p.id')
-                ->select('i.id','p.nombre as producto','i.stock',DB::raw('ROUND((((i.precio * p.porcentaje_ganancia)/100)+ i.precio),2) as precio'),'p.stock_minimo')
+                ->select('i.producto_id as id','p.nombre as producto','i.stock',DB::raw('ROUND((((i.precio * p.porcentaje_ganancia)/100)+ i.precio),2) as precio'),'p.stock_minimo')
                 ->where('i.tienda_id',$tienda->id)
                 ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
                 ->orderBy($ordenadores[$columna], $request['order'][0]["dir"])
@@ -68,7 +69,7 @@ class InventarioController extends Controller
 
         $count = DB::table('vista_inventario as i')
                 ->join('producto as p','i.producto_id','p.id')
-                ->select('i.id','p.nombre as producto','i.stock',DB::raw('ROUND((((i.precio * p.porcentaje_ganancia)/100)+ i.precio),2) as precio'),'p.stock_minimo')
+                ->select('i.producto_id','p.nombre as producto','i.stock',DB::raw('ROUND((((i.precio * p.porcentaje_ganancia)/100)+ i.precio),2) as precio'),'p.stock_minimo')
                 ->where('i.tienda_id',$tienda->id)
                 ->where($ordenadores[$columna], 'LIKE', '%' . $criterio . '%')
                 ->count();
@@ -115,5 +116,56 @@ class InventarioController extends Controller
     public function destroy(Inventario $inventario)
     {
         //
+    }
+
+    public function detalle($id)
+    {
+        $tienda = session('tienda');
+
+        $producto = Producto::where('id',$id)
+                        ->first();
+
+        if($producto != null)
+        {
+            return view('inventario.detalle',['producto' => $producto]);
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
+    public function detalleProducto(Request $request)
+    {
+        $ordenadores = array("p.id","to.nombre");
+
+        $columna = $request['order'][0]["column"];
+
+        $registro = $request['buscar'][0]['registro'];
+
+        $historial = DB::table('producto as p')
+                    ->join('inventario as i','i.producto_id','p.id')
+                    ->join('tipo_operacion as to','i.tipo_operacion_id','to.id')
+                    ->select('i.id','to.nombre','i.precio','i.cantidad','i.precio_promedio',DB::raw("date_format(i.created_at,'%d-%m-%Y') as fecha"))
+                    ->where('p.id',$registro)
+                    ->orderBy($ordenadores[$columna], $request['order'][0]["dir"])
+                    ->skip($request['start'])
+                    ->take($request['length'])
+                    ->get();
+
+        $count = DB::table('producto as p')
+                ->join('inventario as i','i.producto_id','p.id')
+                ->join('tipo_operacion as to','i.tipo_operacion_id','to.id')
+                ->where('p.id',$registro)
+                ->count();
+
+        $data = array(
+            'draw' => $request->draw,
+            'recordsTotal' => $count,
+            'recordsFiltered' => $count,
+            'data' => $historial,
+        );
+
+        return response()->json($data, 200);
     }
 }
