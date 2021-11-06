@@ -164,7 +164,7 @@
           <img src="{{ asset('img/market.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->nombres }} {{ Auth::user()->apellidos }}
+          <a href="/mi-perfil" class="d-block">{{ Auth::user()->nombres }} {{ Auth::user()->apellidos }}
               <small><i class="fa fa-circle user-status-dot d-block" style="color: #6ec95e;"> {{ Auth::user()->rol->nombre }}</i></small>
           </a>
         </div>

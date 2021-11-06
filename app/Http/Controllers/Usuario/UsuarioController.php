@@ -209,4 +209,45 @@ class UsuarioController extends Controller
             return response()->json(['error' => $e->getMessage()],422);
         }
     }
+
+    public function miPerfil()
+    {
+        return view('usuarios.perfil');
+    }
+
+    public function actualizarMiPerfil(Request $request)
+    {
+        $rules = [
+            'nombres' => 'required',
+            'apellidos' => 'required',
+            'telefono' => 'required|min:1|unique:users,telefono,'.Auth::user()->id,
+            'direccion' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+
+        $usuario = User::findOrFail(Auth::user()->id);
+        $usuario->nombres = $request->get('nombres');
+        $usuario->apellidos = $request->get('apellidos');
+        $usuario->telefono = $request->get('telefono');
+        $usuario->direccion = $request->get('direccion');
+        $usuario->save();
+
+        return redirect('/home')->with(['mensaje' => 'Actualización exitosa']);
+    }
+
+    public function actualizarMiCredencial(Request $request)
+    {
+        $rules = [
+            "password" => 'required|string|min:5|confirmed',
+        ];
+
+        $this->validate($request, $rules);
+
+        $usuario = User::findOrFail(Auth::user()->id);
+        $usuario->password = bcrypt($request->get('password'));
+        $usuario->save();
+
+        return redirect('home')->with(['mensaje' => 'Actualización exitosa']);
+    }
 }

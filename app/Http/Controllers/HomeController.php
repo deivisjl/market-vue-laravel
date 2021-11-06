@@ -36,7 +36,9 @@ class HomeController extends Controller
         $tiendas = TiendaUsuario::with('tienda')
             ->where('usuario_id',Auth::user()->id)
             ->get()
-            ->pluck('tienda');
+            ->pluck('tienda')
+            ->where('status',1)
+            ->values();
 
         return view('verificar-tienda.index',['tiendas' =>$tiendas]);
     }

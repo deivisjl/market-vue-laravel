@@ -43,7 +43,7 @@
                         </li>
                       </ul>
 
-                      <a href="#" class="btn btn-primary btn-block"><b>Actualizar perfil</b></a>
+                      <a href="/mi-perfil" class="btn btn-primary btn-block"><b>Actualizar perfil</b></a>
                     </div>
                     <!-- /.card-body -->
                   </div>

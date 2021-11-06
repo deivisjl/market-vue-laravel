@@ -57,4 +57,7 @@
         Route::get('/inventario-detalle-producto/{request}','Inventario\InventarioController@detalleProducto');
 
         Route::resource('/usuarios','Usuario\UsuarioController');
+        Route::get('/mi-perfil','Usuario\UsuarioController@miPerfil');
+        Route::post('/actualizar-mi-perfil','Usuario\UsuarioController@actualizarMiPerfil')->name('usuarios.perfil');
+        Route::post('/actualizar-mi-credencial','Usuario\UsuarioController@actualizarMiCredencial')->name('usuarios.pass');
     });
