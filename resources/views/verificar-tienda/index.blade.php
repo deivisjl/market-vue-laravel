@@ -20,7 +20,7 @@
     <div class="card-header">
         <h3 class="card-title">Selecciona una tienda</h3>
         <div class="card-tools">
-          <i class="fas fa-lock"></i>
+          <a href="/logout"><i class="fas fa-power-off"></i></a>
         </div>
         <!-- /.card-tools -->
       </div>

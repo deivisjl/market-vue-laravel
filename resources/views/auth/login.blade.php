@@ -20,21 +20,27 @@
       <form action="{{ route('login') }}" method="post" autocomplete="off">
         @csrf
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" placeholder="Correo electrónico">
+          <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Correo electrónico" value="{{ old('email') }}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
+          @error('email')
+            <span class="is-invalid" role="alert" style="color:#dc3545">{{ $message }}</span>
+          @enderror
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Contraseña">
+          <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Contraseña">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
+        @error('password')
+            <span class="is-invalid" role="alert" style="color:#dc3545">{{ $message }}</span>
+        @enderror
         <div class="row">
           <!-- /.col -->
           <div class="col-12">

@@ -55,4 +55,6 @@
         Route::resource('/inventario','Inventario\InventarioController');
         Route::get('/inventario-detalle/{id}','Inventario\InventarioController@detalle');
         Route::get('/inventario-detalle-producto/{request}','Inventario\InventarioController@detalleProducto');
+
+        Route::resource('/usuarios','Usuario\UsuarioController');
     });

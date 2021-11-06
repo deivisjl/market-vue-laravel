@@ -17,4 +17,9 @@ class TiendaUsuario extends Model
     {
         return $this->belongsTo(Tienda::class);
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
