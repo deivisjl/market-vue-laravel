@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Inventario;
 
 use App\Producto;
 use App\Inventario;
+use App\Transferencia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class InventarioController extends Controller
 {
@@ -143,11 +145,14 @@ class InventarioController extends Controller
 
         $registro = $request['buscar'][0]['registro'];
 
+        $tienda = $request->session()->get('tienda');
+
         $historial = DB::table('producto as p')
                     ->join('inventario as i','i.producto_id','p.id')
                     ->join('tipo_operacion as to','i.tipo_operacion_id','to.id')
                     ->select('i.id','to.nombre','i.precio','i.cantidad','i.precio_promedio',DB::raw("date_format(i.created_at,'%d-%m-%Y') as fecha"))
                     ->where('p.id',$registro)
+                    ->where('i.tienda_id',$tienda->id)
                     ->orderBy($ordenadores[$columna], $request['order'][0]["dir"])
                     ->skip($request['start'])
                     ->take($request['length'])
@@ -157,6 +162,7 @@ class InventarioController extends Controller
                 ->join('inventario as i','i.producto_id','p.id')
                 ->join('tipo_operacion as to','i.tipo_operacion_id','to.id')
                 ->where('p.id',$registro)
+                ->where('i.tienda_id',$tienda->id)
                 ->count();
 
         $data = array(
@@ -167,5 +173,56 @@ class InventarioController extends Controller
         );
 
         return response()->json($data, 200);
+    }
+
+    public function transferencia()
+    {
+        $tienda = session('tienda');
+
+        return view('inventario.transferencia',['tienda'=>$tienda]);
+    }
+
+    public function crearTransferencia(Request $request)
+    {
+        try
+        {
+            $rules = [
+                "boleta_referencia" => 'required',
+                "autorizo_traslado" => 'required',
+                "fecha" => 'required|date',
+                "motivo" => 'required',
+                "solicito_traslado" => 'required',
+                "tienda_destino_id" => 'required',
+                "tienda_origen_id" => 'required',
+                "lista" => 'required|array'
+            ];
+
+            $this->validate($request, $rules);
+
+            return DB::transaction(function() use($request){
+                foreach ($request->lista as $key => $item)
+                {
+                    $registro = new Transferencia();
+                    $registro->boleta_referencia = $request->get('boleta_referencia');
+                    $registro->tienda_origen_id = $request->get('tienda_origen_id');
+                    $registro->tienda_destino_id = $request->get('tienda_destino_id');
+                    $registro->producto_id = $item['producto']['id'];
+                    $registro->cantidad = $item['cantidad'];
+                    $registro->precio = $item['precio'];
+                    $registro->quien_solicito_traslado = $request->get('solicito_traslado');
+                    $registro->quien_autorizo_traslado = $request->get('autorizo_traslado');
+                    $registro->motivo = $request->get('motivo');
+                    $registro->fecha = $request->get('fecha');
+                    $registro->usuario_id = Auth::user()->id;
+                    $registro->save();
+                }
+
+                return response()->json(['data' => 'Transferencia registrada con éxito']);
+            });
+        }
+        catch (\Exception $ex)
+        {
+            return response()->json(['error' => $ex->getMessage()]);
+        }
     }
 }

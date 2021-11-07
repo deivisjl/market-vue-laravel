@@ -57,6 +57,7 @@ Vue.component('proveedor-component', require('./components/shared/ProveedorCompo
 
 Vue.component('compra-component', require('./components/CompraComponent.vue').default);
 Vue.component('venta-component', require('./components/VentaComponent.vue').default);
+Vue.component('transferencia-component', require('./components/TransferenciaComponent.vue').default);
 
 
 /**

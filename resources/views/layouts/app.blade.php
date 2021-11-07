@@ -15,7 +15,7 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed text-sm">
     <div id="app">
           <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-dark navbar-light sticky-top">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -141,6 +141,11 @@
         </a>
       </li> --}}
       <li class="nav-item active">
+        <a class="nav-link" href="{{ route('cambiar-tienda') }}" role="button">
+            <i class="fas fa-exchange-alt"></i> Cambiar tienda
+        </a>
+      </li>
+      <li class="nav-item active">
         <a class="nav-link" href="/logout" role="button">
             <i class="fas fa-power-off"></i>
         </a>
@@ -263,7 +268,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('transferencia') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transferencia de stock</p>
                 </a>

@@ -41,9 +41,12 @@
         Route::resource('/productos','Catalogos\ProductoController');
         Route::get('/buscar-productos-nombre/{request}','Catalogos\ProductoController@obtenerProductos');
         Route::get('/productos-por-nombre/{request}','Catalogos\ProductoController@buscarProductoNombre');
+        Route::get('/buscar-producto-transferencia/{request}','Catalogos\ProductoController@buscarProductoTransferencia');
 
         Route::resource('/tiendas','Tienda\TiendaController');
         Route::get('/tiendas-deshabilitar/{request}','Tienda\TiendaController@deshabilitar');
+        Route::get('/listar-tiendas','Tienda\TiendaController@listarTiendas');
+        Route::get('/cambiar-tienda','Tienda\TiendaController@cambiarTienda')->name('cambiar-tienda');
 
         Route::resource('/compras','Compra\CompraController');
         Route::get('/compras-detalle/{id}','Compra\CompraController@detalle');
@@ -55,6 +58,8 @@
         Route::resource('/inventario','Inventario\InventarioController');
         Route::get('/inventario-detalle/{id}','Inventario\InventarioController@detalle');
         Route::get('/inventario-detalle-producto/{request}','Inventario\InventarioController@detalleProducto');
+        Route::get('/transferencia-de-productos','Inventario\InventarioController@transferencia')->name('transferencia');
+        Route::post('/guardar-transferencia','Inventario\InventarioController@crearTransferencia');
 
         Route::resource('/usuarios','Usuario\UsuarioController');
         Route::get('/mi-perfil','Usuario\UsuarioController@miPerfil');

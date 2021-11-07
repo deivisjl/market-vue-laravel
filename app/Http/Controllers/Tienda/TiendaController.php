@@ -194,4 +194,29 @@ class TiendaController extends Controller
             return response()->json(['error' => $e->getMessage()],422);
         }
     }
+
+    public function listarTiendas()
+    {
+        try
+        {
+            $tienda = session('tienda');
+
+            $tiendas = Tienda::where('status',1)
+                        ->whereNotIn('id',[$tienda->id])
+                        ->get();
+
+            return response()->json(['data' => $tiendas],200);
+        }
+        catch (\Exception $ex)
+        {
+            return response()->json(['error' => $ex->getMessage()],423);
+        }
+    }
+
+    public function cambiarTienda(Request $request)
+    {
+        $request->session()->forget('tienda');
+
+        return redirect()->route('home');
+    }
 }

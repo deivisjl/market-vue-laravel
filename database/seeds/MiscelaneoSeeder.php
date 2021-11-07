@@ -28,7 +28,11 @@ class MiscelaneoSeeder extends Seeder
         ]);
 
         TipoOperacion::create([
-            'nombre' => 'Traslado'
+            'nombre' => 'Ingreso traslado'
+        ]);
+
+        TipoOperacion::create([
+            'nombre' => 'Salida traslado'
         ]);
 
         FormaPago::create([
