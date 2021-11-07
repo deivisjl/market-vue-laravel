@@ -17,7 +17,8 @@ class CreateTransferenciaTrigger extends Migration
         DB::unprepared('
         CREATE TRIGGER Transferencia_Trigger AFTER INSERT ON `transferencia` FOR EACH ROW
             BEGIN
-                DECLARE tmp_tipo_operacion INT;
+                DECLARE tmp_tipo_operacion_ingreso INT;
+                DECLARE tmp_tipo_operacion_salida INT;
                 DECLARE tmp_precio_destino DECIMAL(8,2);
                 DECLARE tmp_cantidad_destino DECIMAL(8,2);
                 DECLARE tmp_promedio_destino DECIMAL(8,2);
