@@ -9,6 +9,6 @@ class Tienda extends Model
     protected $table = 'tienda';
 
     protected $fillable = [
-        'id','nombre','direccion','gerente','telefono','status'
+        'id','nombre','codigo','direccion','gerente','telefono','status'
     ];
 }

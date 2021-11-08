@@ -44,6 +44,7 @@ class TiendaController extends Controller
             'gerente' => 'required',
             'telefono' => 'required|numeric|unique:tienda',
             'direccion' => 'required',
+            'codigo' => 'required|unique:tienda',
         ];
 
         $this->validate($request, $rules);
@@ -53,6 +54,7 @@ class TiendaController extends Controller
         $tienda->direccion = $request->direccion;
         $tienda->gerente = $request->gerente;
         $tienda->telefono = $request->telefono;
+        $tienda->codigo = strtoupper($request->codigo);
         $tienda->save();
 
         return redirect('/tiendas')->with(['mensaje' => 'Registro exitoso']);
@@ -120,6 +122,7 @@ class TiendaController extends Controller
             'gerente' => 'required',
             'telefono' => 'required|numeric|unique:tienda,telefono,'.$tienda->id,
             'direccion' => 'required',
+            'codigo' => 'required|unique:tienda,codigo,'.$tienda->id,
         ];
 
         $this->validate($request, $rules);
@@ -128,6 +131,7 @@ class TiendaController extends Controller
         $tienda->direccion = $request->direccion;
         $tienda->gerente = $request->gerente;
         $tienda->telefono = $request->telefono;
+        $tienda->codigo = strtoupper($request->codigo);
         $tienda->save();
 
         return redirect('/tiendas')->with(['mensaje' => 'Registro editado con éxito']);

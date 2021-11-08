@@ -16,6 +16,7 @@ class CreateTiendaTable extends Migration
         Schema::create('tienda', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
+            $table->string('codigo')->unique();
             $table->text('direccion');
             $table->text('gerente');
             $table->bigInteger('telefono');

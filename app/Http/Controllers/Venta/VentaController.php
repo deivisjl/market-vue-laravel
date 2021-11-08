@@ -178,6 +178,8 @@ class VentaController extends Controller
 
     public function obtenerNoFactura()
     {
+        $tienda = session('tienda');
+
         $respuesta = array();
 
         $factura = DB::table('venta')
@@ -187,12 +189,12 @@ class VentaController extends Controller
         if($factura && $factura->ultima > 0)
         {
             $respuesta['correlativo'] = $factura->ultima + 1;
-            $respuesta['factura'] = str_pad($respuesta['correlativo'], 7, '0', STR_PAD_LEFT);
+            $respuesta['factura'] = $tienda->codigo.'-'.str_pad($respuesta['correlativo'], 7, '0', STR_PAD_LEFT);
         }
         else
         {
             $respuesta['correlativo'] = 1;
-            $respuesta['factura'] = str_pad($respuesta['correlativo'], 7, '0', STR_PAD_LEFT);
+            $respuesta['factura'] = $tienda->codigo.'-'.str_pad($respuesta['correlativo'], 7, '0', STR_PAD_LEFT);
         }
 
         return $respuesta;

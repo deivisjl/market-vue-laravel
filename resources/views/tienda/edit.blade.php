@@ -44,6 +44,13 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label for="">Código de facturación <small>(Iniciales)</small></label>
+                                <input type="text" class="form-control @error('codigo') is-invalid @enderror" name="codigo" value="{{ $tienda->codigo }}">
+                                @error('codigo')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label for="">Nombre del gerente</label>
                                 <input type="text" class="form-control @error('gerente') is-invalid @enderror" name="gerente" value="{{ $tienda->gerente }}">
                                 @error('gerente')
