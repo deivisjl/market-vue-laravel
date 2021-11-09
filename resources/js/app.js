@@ -59,7 +59,13 @@ Vue.component('compra-component', require('./components/CompraComponent.vue').de
 Vue.component('venta-component', require('./components/VentaComponent.vue').default);
 Vue.component('transferencia-component', require('./components/TransferenciaComponent.vue').default);
 
+Vue.component('mas-vendidos-component', require('./components/reportes/MasVendidosComponent.vue').default);
+Vue.component('productos-proximo-agotarse-component', require('./components/reportes/ProductosAgotarseComponent.vue').default);
 
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

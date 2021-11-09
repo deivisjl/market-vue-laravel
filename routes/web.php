@@ -65,4 +65,10 @@
         Route::get('/mi-perfil','Usuario\UsuarioController@miPerfil');
         Route::post('/actualizar-mi-perfil','Usuario\UsuarioController@actualizarMiPerfil')->name('usuarios.perfil');
         Route::post('/actualizar-mi-credencial','Usuario\UsuarioController@actualizarMiCredencial')->name('usuarios.pass');
+
+        Route::get('/reportes-graficos','Reportes\ReporteController@grafico');
+        Route::post('/grafico-producto-mas-vendido','Reportes\ReporteController@graficoProductoMasVendido');
+        Route::post('/grafico-producto-por-agotarse','Reportes\ReporteController@graficoProductoPorAgotarse');
+
+        Route::get('/reportes-pdf','Reportes\ReporteController@pdf');
     });
