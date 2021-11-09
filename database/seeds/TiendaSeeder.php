@@ -18,6 +18,7 @@ class TiendaSeeder extends Seeder
             'nombre'=> 'Central',
             'direccion' => 'Ciudad',
             'gerente' => 'Jairo Melgar',
+            'codigo' => 'F1',
             'telefono' => 59283247
         ]);
 
