@@ -11,4 +11,9 @@ class Producto extends Model
     protected $fillable = [
         'id','nombre','categoria_id','descripcion','porcentaje_ganancia','stock_minimo'
     ];
+
+    public function vista_inventario()
+    {
+        return $this->belongsTo(VistaInventario::class);
+    }
 }

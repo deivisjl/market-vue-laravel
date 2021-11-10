@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Reportes;
 
+use App\Producto;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -90,8 +91,7 @@ class ReporteController extends Controller
 
             $registros = DB::table('producto as p')
                         ->join('vista_inventario as vi','vi.producto_id','p.id')
-                        ->select('p.id','p.nombre','vi.stock as cantidad')
-                        ->where('vi.stock','<=','p.stock_minimo')
+                        ->select('p.id','p.nombre','vi.stock as cantidad','p.stock_minimo')
                         ->where('vi.tienda_id', $tienda->id)
                         ->get();
 
@@ -100,8 +100,11 @@ class ReporteController extends Controller
 
             foreach ($registros as $key => $item)
             {
-                $series[$key] = (int)$item->cantidad;
-                $etiquetas[$key] = $item->nombre;
+                if($item->cantidad <= $item->stock_minimo)
+                {
+                    $series[$key] = (int)$item->cantidad;
+                    $etiquetas[$key] = $item->nombre;
+                }
             }
 
             $respuesta = array('series' => $series, 'etiquetas' => $etiquetas);
