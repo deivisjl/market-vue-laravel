@@ -43,7 +43,7 @@ class ProductoController extends Controller
     {
         $rules = [
             'nombre' => 'required',
-            'categoria' => 'required|numeric',
+            'categoria' => 'required|numeric|min:1',
             'porcentaje' => 'required|numeric|min:1',
             'stock_minimo' => 'required|numeric|min:1',
             'descripcion' => 'nullable'
@@ -124,7 +124,7 @@ class ProductoController extends Controller
     {
         $rules = [
             'nombre' => 'required',
-            'categoria' => 'required|numeric',
+            'categoria' => 'required|numeric|min:1',
             'porcentaje' => 'required|numeric|min:1',
             'stock_minimo' => 'required|numeric|min:1',
             'descripcion' => 'nullable'

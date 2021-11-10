@@ -95,16 +95,14 @@ class ReporteController extends Controller
                         ->where('vi.tienda_id', $tienda->id)
                         ->get();
 
+            //return response()->json(['data' => $registros]);
             $series = array();
             $etiquetas = array();
 
             foreach ($registros as $key => $item)
             {
-                if($item->cantidad <= $item->stock_minimo)
-                {
-                    $series[$key] = (int)$item->cantidad;
-                    $etiquetas[$key] = $item->nombre;
-                }
+                $series[$key] = (int)$item->cantidad;
+                $etiquetas[$key] = $item->nombre;
             }
 
             $respuesta = array('series' => $series, 'etiquetas' => $etiquetas);
