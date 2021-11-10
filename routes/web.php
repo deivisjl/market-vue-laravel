@@ -71,4 +71,6 @@
         Route::post('/grafico-producto-por-agotarse','Reportes\ReporteController@graficoProductoPorAgotarse');
 
         Route::get('/reportes-pdf','Reportes\ReporteController@pdf');
+        Route::post('/pdf-ganancias-diarias','Reportes\ReporteController@pdfGananciasDiarias');
+        Route::post('/pdf-ganancias-mensuales','Reportes\ReporteController@pdfGananciasMensuales');
     });

@@ -62,6 +62,9 @@ Vue.component('transferencia-component', require('./components/TransferenciaComp
 Vue.component('mas-vendidos-component', require('./components/reportes/MasVendidosComponent.vue').default);
 Vue.component('productos-proximo-agotarse-component', require('./components/reportes/ProductosAgotarseComponent.vue').default);
 
+Vue.component('ganancia-diaria-component', require('./components/reporte-pdf/GananciaDiariaComponent.vue').default);
+Vue.component('ganancia-mensual-component', require('./components/reporte-pdf/GananciaMensualComponent.vue').default);
+
 import VueApexCharts from 'vue-apexcharts'
 Vue.use(VueApexCharts)
 
