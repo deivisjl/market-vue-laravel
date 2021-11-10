@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\VistaInventario;
 
 class ReporteController extends Controller
 {
@@ -90,12 +91,12 @@ class ReporteController extends Controller
             $tienda = session('tienda');
 
             $registros = DB::table('producto as p')
-                        ->join('vista_inventario as vi','vi.producto_id','p.id')
+                        ->join('vista_inventario as vi', 'p.id','vi.producto_id')
                         ->select('p.id','p.nombre','vi.stock as cantidad','p.stock_minimo')
-                        ->where('vi.tienda_id', $tienda->id)
+                        ->whereRaw('vi.stock <= p.stock_minimo')
+                        ->where('vi.tienda_id','=' ,$tienda->id)
                         ->get();
 
-            //return response()->json(['data' => $registros]);
             $series = array();
             $etiquetas = array();
 
