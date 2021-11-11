@@ -179,7 +179,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
+            @if(Auth::user()->esGerente() || Auth::user()->esAdministrador())
             <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -227,6 +227,8 @@
                   </li>
                 </ul>
             </li>
+            @endif
+            @if(Auth::user()->esGerente() || Auth::user()->esAdministrador())
             <li class="nav-item">
                 <a href="{{ route('tiendas.index') }}" class="nav-link">
                   <i class="nav-icon fas fa-store"></i>
@@ -235,6 +237,8 @@
                   </p>
                 </a>
               </li>
+              @endif
+              @if(Auth::user()->esVendedor() || Auth::user()->esAdministrador() || Auth::user()->esGerente())
               <li class="nav-item">
                 <a href="{{ route('ventas.create') }}" class="nav-link">
                   <i class="nav-icon fas fa-money-bill-alt"></i>
@@ -243,15 +247,19 @@
                   </p>
                 </a>
               </li>
-          <li class="nav-item">
-            <a href="{{ route('compras.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-truck-loading"></i>
-              <p>
-                Compras
-              </p>
-            </a>
-          </li>
+              @endif
+            @if(Auth::user()->esGerente() || Auth::user()->esAdministrador())
+            <li class="nav-item">
+                <a href="{{ route('compras.index') }}" class="nav-link">
+                <i class="nav-icon fas fa-truck-loading"></i>
+                <p>
+                    Compras
+                </p>
+                </a>
+            </li>
+            @endif
           {{--  --}}
+          @if(Auth::user()->esGerente() || Auth::user()->esAdministrador())
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-warehouse"></i>
@@ -275,7 +283,9 @@
               </li>
             </ul>
         </li>
+        @endif
           {{--  --}}
+          @if(Auth::user()->esGerente() || Auth::user()->esAdministrador())
           <li class="nav-item">
             <a href="{{ route('ventas.index') }}" class="nav-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
@@ -292,6 +302,8 @@
               </p>
             </a>
           </li>
+          @endif
+          @if(Auth::user()->esGerente())
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -315,6 +327,7 @@
               </li>
             </ul>
           </li>
+          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

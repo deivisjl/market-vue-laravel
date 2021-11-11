@@ -12,6 +12,12 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
+    const USUARIO_ADMINISTRADOR = 'ADMINISTRADOR';
+
+    const USUARIO_GERENTE = 'GERENTE';
+
+    const USUARIO_VENDEDOR = 'VENDEDOR';
+
     protected $dates = ['deleted_at'];
 
     /**
@@ -49,5 +55,20 @@ class User extends Authenticatable
     public function tienda_usuario()
     {
         return $this->hasMany(TiendaUsuario::class,'usuario_id');
+    }
+
+    public function esAdministrador()
+    {
+        return strtoupper($this->rol->nombre) == User::USUARIO_ADMINISTRADOR;
+    }
+
+    public function esGerente()
+    {
+        return strtoupper($this->rol->nombre) == User::USUARIO_GERENTE;
+    }
+
+    public function esVendedor()
+    {
+        return strtoupper($this->rol->nombre) == User::USUARIO_VENDEDOR;
     }
 }

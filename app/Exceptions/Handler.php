@@ -71,6 +71,15 @@ class Handler extends ExceptionHandler
     }
     public function handleException($request, Exception $exception)
     {
+        if ($exception instanceof ModelNotFoundException)
+        {
+            return response()->view('errors.404');
+        }
+        if ($exception instanceof NotFoundHttpException)
+        {
+            return redirect()->route('home');
+        }
+
         if($exception instanceof HttpException)
         {
             if($exception->getStatusCode() == 404)
@@ -95,21 +104,12 @@ class Handler extends ExceptionHandler
             return $this->convertValidationExceptionToResponse($exception, $request);
         }
 
-        if ($exception instanceof ModelNotFoundException) {
-            $modelo = strtolower(class_basename($exception->getModel()));
-            return $this->errorResponse("No existe ninguna instancia de {$modelo} con el id especificado", 404);
-        }
-
         if ($exception instanceof AuthenticationException) {
             return $this->unauthenticated($request, $exception);
         }
 
         if ($exception instanceof AuthorizationException) {
             return $this->errorResponse('No posee permisos para ejecutar esta acción', 403);
-        }
-
-        if ($exception instanceof NotFoundHttpException) {
-            return $this->errorResponse('No se encontró la URL especificada', 404);
         }
 
         if ($exception instanceof MethodNotAllowedHttpException) {
