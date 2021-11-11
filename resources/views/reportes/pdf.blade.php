@@ -33,7 +33,7 @@
                         <a class="nav-link active" id="v-pills-report1-tab" data-toggle="pill" href="#v-pills-report1" role="tab" aria-controls="v-pills-report1" aria-selected="true">Reporte ganancias diarias</a>
                         <a class="nav-link" id="v-pills-report2-tab" data-toggle="pill" href="#v-pills-report2" role="tab" aria-controls="v-pills-report2" aria-selected="false">Reporte ganancias mensuales</a>
                         <a class="nav-link" id="v-pills-report3-tab" data-toggle="pill" href="#v-pills-report3" role="tab" aria-controls="v-pills-report3" aria-selected="false">Reporte de ventas generales</a>
-                        <a class="nav-link" id="v-pills-report4-tab" data-toggle="pill" href="#v-pills-report4" role="tab" aria-controls="v-pills-report4" aria-selected="false">Reporte de productos más vendidos</a>
+                        <a class="nav-link" id="v-pills-report4-tab" data-toggle="pill" href="#v-pills-report4" role="tab" aria-controls="v-pills-report4" aria-selected="false">Reporte de productos vendidos</a>
                         <a class="nav-link" id="v-pills-report5-tab" data-toggle="pill" href="#v-pills-report5" role="tab" aria-controls="v-pills-report5" aria-selected="false">Reporte de stock por categoría</a>
                         <a class="nav-link" id="v-pills-report6-tab" data-toggle="pill" href="#v-pills-report6" role="tab" aria-controls="v-pills-report6" aria-selected="false">Reporte de stock por producto</a>
                         <a class="nav-link" id="v-pills-report7-tab" data-toggle="pill" href="#v-pills-report7" role="tab" aria-controls="v-pills-report7" aria-selected="false">Reporte de transferencia de stock</a>
@@ -62,29 +62,54 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-report3" role="tabpanel" aria-labelledby="v-pills-report3-tab">
-                            {{--  --}}
-                                <span>Ventas generales</span>
-                            {{--  --}}
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Reporte de ventas generales</h3>
+                                </div>
+                                <div class="card-body">
+                                    <venta-general-component></venta-general-component>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-report4" role="tabpanel" aria-labelledby="v-pills-report4-tab">
-                            {{--  --}}
-                                <span>Productos más vendidos</span>
-                            {{--  --}}
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Reporte de productos vendidos</h3>
+                                </div>
+                                <div class="card-body">
+                                    <producto-vendido-component></producto-vendido-component>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-report5" role="tabpanel" aria-labelledby="v-pills-report5-tab">
-                            {{--  --}}
-                                <span>Stock por categoría</span>
-                            {{--  --}}
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Reporte de stock por categoría</h3>
+                                </div>
+                                <div class="card-body">
+                                    <stock-por-categoria-component></stock-por-categoria-component>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-report6" role="tabpanel" aria-labelledby="v-pills-report6-tab">
-                            {{--  --}}
-                                <span>Stock por producto</span>
-                            {{--  --}}
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Reporte de stock por producto</h3>
+                                </div>
+                                <div class="card-body">
+                                    <stock-por-producto-component></stock-por-producto-component>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-report7" role="tabpanel" aria-labelledby="v-pills-report7-tab">
-                            {{--  --}}
-                                <span>Transferencia de producto</span>
-                            {{--  --}}
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Reporte de transferencia de stock</h3>
+                                </div>
+                                <div class="card-body">
+                                    <transferencia-stock-component></transferencia-stock-component>
+                                </div>
+                            </div>
                         </div>
                       </div>
                     </div>

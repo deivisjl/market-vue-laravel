@@ -73,4 +73,9 @@
         Route::get('/reportes-pdf','Reportes\ReporteController@pdf');
         Route::post('/pdf-ganancias-diarias','Reportes\ReporteController@pdfGananciasDiarias');
         Route::post('/pdf-ganancias-mensuales','Reportes\ReporteController@pdfGananciasMensuales');
+        Route::post('/pdf-ventas-generales','Reportes\ReporteController@pdfVentasGenerales');
+        Route::post('/pdf-productos-vendidos','Reportes\ReporteController@pdfProductosVendidos');
+        Route::post('/pdf-stock-por-categorias','Reportes\ReporteController@pdfStockPorCategorias');
+        Route::post('/pdf-stock-productos','Reportes\ReporteController@pdfStockProductos');
+        Route::post('/pdf-transferencia-stock','Reportes\ReporteController@pdfTransferenciaStock');
     });
