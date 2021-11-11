@@ -69,6 +69,7 @@ Vue.component('producto-vendido-component', require('./components/reporte-pdf/Pr
 Vue.component('stock-por-categoria-component', require('./components/reporte-pdf/StockCategoriaComponent.vue').default);
 Vue.component('stock-por-producto-component', require('./components/reporte-pdf/StockProductoComponent.vue').default);
 Vue.component('transferencia-stock-component', require('./components/reporte-pdf/TransferenciaStockComponent.vue').default);
+Vue.component('bitacora-usuario-component', require('./components/reporte-pdf/BitacoraUsuarioComponent.vue').default);
 
 import VueApexCharts from 'vue-apexcharts'
 Vue.use(VueApexCharts)

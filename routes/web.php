@@ -80,6 +80,7 @@
         Route::post('/pdf-stock-por-categorias','Reportes\ReporteController@pdfStockPorCategorias');
         Route::post('/pdf-stock-productos','Reportes\ReporteController@pdfStockProductos');
         Route::post('/pdf-transferencia-stock','Reportes\ReporteController@pdfTransferenciaStock');
+        Route::post('/pdf-bitacora-usuarios','Reportes\ReporteController@pdfBitacoraUsuarios');
     });
 
     Route::get('/mi-perfil','Usuario\UsuarioController@miPerfil')->middleware(['auth','tienda']);

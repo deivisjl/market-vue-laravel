@@ -385,6 +385,43 @@ class ReporteController extends Controller
         }
     }
 
+    public function pdfBitacoraUsuarios(Request $request)
+    {
+        try
+        {
+            $desde = Carbon::parse($request->get('desde'));
+            $hasta = Carbon::parse($request->get('hasta'));
+
+            if($desde >= $hasta)
+            {
+                throw new \Exception("Debe seleccionar un rango válido", 1);
+            }
+
+            $diferencia = $hasta->diffInDays($desde);
+
+            if($diferencia > 365)
+            {
+                throw new \Exception("El rango no debe ser mayor a un año", 1);
+            }
+
+            $registros = DB::table('bitacora as b')
+                        ->join('users as u','b.usuario_id','u.id')
+                        ->select('u.id',DB::raw('CONCAT_WS(" ",u.nombres," ",u.apellidos) as usuario'),DB::raw('date_format(b.fecha,"%d-%m-%Y") as fecha'),'b.hora')
+                        ->whereBetween('b.created_at',[$desde,$hasta])
+                        ->get();
+
+            $fecha = Carbon::now()->format('dmY_h:m:s');
+
+            $reporte = \PDF::setOptions(['isHtml5/ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reporte-bitacora-usuarios',['registros' => $registros, 'desde' => $desde, 'hasta' => $hasta])->setPaper('letter','landscape');
+
+            return $reporte->download('reporte_'.$fecha.'.pdf');
+        }
+        catch (\Exception $ex)
+        {
+            return response()->json(['error' => $ex->getMessage()],423);
+        }
+    }
+
     public function parsearMeses($data)
     {
         $respuesta = array();

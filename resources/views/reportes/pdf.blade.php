@@ -37,6 +37,7 @@
                         <a class="nav-link" id="v-pills-report5-tab" data-toggle="pill" href="#v-pills-report5" role="tab" aria-controls="v-pills-report5" aria-selected="false">Reporte de stock por categoría</a>
                         <a class="nav-link" id="v-pills-report6-tab" data-toggle="pill" href="#v-pills-report6" role="tab" aria-controls="v-pills-report6" aria-selected="false">Reporte de stock por producto</a>
                         <a class="nav-link" id="v-pills-report7-tab" data-toggle="pill" href="#v-pills-report7" role="tab" aria-controls="v-pills-report7" aria-selected="false">Reporte de transferencia de stock</a>
+                        <a class="nav-link" id="v-pills-report8-tab" data-toggle="pill" href="#v-pills-report8" role="tab" aria-controls="v-pills-report8" aria-selected="false">Reporte de bitácora de usuarios</a>
                       </div>
                     </div>
                     <div class="col-9">
@@ -108,6 +109,16 @@
                                 </div>
                                 <div class="card-body">
                                     <transferencia-stock-component></transferencia-stock-component>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-report8" role="tabpanel" aria-labelledby="v-pills-report8-tab">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Reporte de bitácora de usuarios</h3>
+                                </div>
+                                <div class="card-body">
+                                    <bitacora-usuario-component></bitacora-usuario-component>
                                 </div>
                             </div>
                         </div>
