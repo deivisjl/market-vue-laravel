@@ -218,4 +218,26 @@ class VentaController extends Controller
             abort(404);
         }
     }
+
+    public function descargarComprobanteVenta(Request $request)
+    {
+        try
+        {
+            $rules = [
+                'venta' => 'required|numeric|min:1'
+            ];
+
+            $this->validate($request, $rules);
+
+            $venta = Venta::with('detalle_venta','cliente','forma_pago')->where('id',$request->venta)->first();
+
+            $reporte = \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('comprobante-venta',['venta' => $venta])->setPaper('letter','portrait');
+
+            return $reporte->download('reporte_.pdf');
+        }
+        catch (\Exception $ex)
+        {
+            return response()->json(['error' => $ex->getMessage()],423);
+        }
+    }
 }

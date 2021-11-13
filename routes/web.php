@@ -28,6 +28,7 @@
         Route::resource('/ventas','Venta\VentaController',['except' => ['create']]);
         Route::get('/ventas-detalle/{id}','Venta\VentaController@detalle');
         Route::get('/punto-de-venta','Venta\VentaController@create')->name('ventas.create')->middleware('caja');
+        Route::post('descargar-comprobante-venta','Venta\VentaController@descargarComprobanteVenta');
     });
 
     Route::group(['middleware' => ['auth','tienda','admin']], function(){

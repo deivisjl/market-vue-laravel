@@ -252,6 +252,7 @@
                 axios.post(abs_path + '/ventas',data)
                     .then(response =>{
                         Toastr.success(response.data.data,'Mensaje');
+                        this.obtener_comprobante(response.data.venta)
                         this.limpiar_vista()
                     })
                     .catch(error =>{
@@ -261,6 +262,51 @@
                         this.loading = false
                     })
             },
+            /*  */
+            obtener_comprobante(venta){
+                this.loading = true
+                Promise.all([this.descargar_comprobante(venta)])
+                    .then(data =>{
+                        this.loading = false
+                    })
+                    .catch(error =>{
+                        this.loading = false
+                    })
+            },
+            descargar_comprobante(venta){
+                return new Promise((resolve,reject) =>{
+
+                    this.loading = true
+
+                    let datos = {
+                        'venta':venta
+                    }
+
+                    axios({
+                        url:abs_path + '/descargar-comprobante-venta',
+                        data:datos,
+                        method:'POST',
+                        responseType:'blob'
+                    })
+                    .then((r) => {
+                        const blob = new Blob([r.data], {type: r.data.type});
+                        const url = window.URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        let fileName = Date.now()+'.pdf';
+                        link.setAttribute('download', fileName);
+                        document.body.appendChild(link);
+                        link.click();
+                        link.remove();
+                        window.URL.revokeObjectURL(url);
+                        resolve()
+                    })
+                    .catch((error) =>{
+                        reject(error)
+                    })
+                })
+            },
+            /*  */
             limpiar_vista(){
                 this.forma_pago=''
                 this.producto=null

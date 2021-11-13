@@ -21,4 +21,9 @@ class Venta extends Model
     {
         return $this->belongsTo(Cliente::class);
     }
+
+    public function forma_pago()
+    {
+        return $this->belongsTo(FormaPago::class);
+    }
 }
